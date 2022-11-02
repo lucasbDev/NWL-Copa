@@ -1,5 +1,5 @@
 import Fastify from 'fastify'
-//import cors from '@fastify/cors
+import cors from '@fastify/cors'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient({
@@ -11,13 +11,15 @@ async function bootstrap() {
         logger: true,
     })
 
-    /* await fastify.register(cors, {
+     await fastify.register(cors, {
         origin: true
-    }) */
+    }) 
 
 
-    fastify.get('/bolao/count', () => {
-        return { count: 0 }
+    fastify.get('/bolao/count', async () => {
+        const count = await prisma.bolao.count()
+        
+        return { count }
     })
 
     await fastify.listen({ port: 3000, host: '0.0.0.0' })
