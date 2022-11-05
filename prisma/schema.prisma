@@ -15,8 +15,58 @@ datasource db {
 }
 
 model Bolao {
-  id String @id @default(uuid())
-  title String
-  code String @unique
+  id       String   @id @default(uuid())
+  ownerId  String?
+  title    String
+  code     String   @unique
   createAt DateTime @default(now())
+  bolao    User?    @relation(fields: [ownerId], references: [id])
+
+  participants Participant[]
+ 
+}
+
+model Participant {
+  id      String @id @default(uuid())
+  userId  String
+  bolaoId String
+  bolao   Bolao  @relation(fields: [bolaoId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  guesses Guess[]
+
+  @@unique([userId,bolaoId]) //unico registro
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  avatar    String?
+  createdAt DateTime @default(now())
+
+  participantAt Participant[]
+  bolao        Bolao[]
+}
+
+model Game {
+  id                    String   @id @default(uuid())
+  date                  DateTime
+  firstTeamCountryCode  String
+  secondTeamCountryCode String
+
+  guesses Guess[]
+}
+
+model Guess {
+  id            String @id @default(uuid())
+  gameId        String
+  participantId String
+
+  firstTeamPoint  Int
+  secondTeamPoint Int
+  createdAt       DateTime @default(now())
+
+  game        Game        @relation(fields: [gameId], references: [id])
+  participant Participant @relation(fields: [participantId], references: [id])
 }
