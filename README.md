@@ -1,4 +1,4 @@
-# sales_api
+# World_Cup_Back
 ## Descrição
 - Este é o Back-end do projeto de Página de Bolão desenvolvido durante a Copa do Mundo de 2023
 
