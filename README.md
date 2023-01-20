@@ -2,11 +2,28 @@
 ## Descrição
 - Este é o Back-end do projeto de Página de Bolão desenvolvido durante a Copa do Mundo de 2023
 
+## Recomendações
+- É necessário que você tenha instalado o Banco de dados: Postgres em sua máquina
+- Caso vôce utilize outro Banco de dados, altere o provider no arquivo: schema.prisma, localizado na pasta do Prisma
+```bash
+$ datasource db {
+$ provider = "COLOQUE AQUI O BD DE SUA PREFERÊNCIA"
+$  url      = env("DATABASE_URL")
+}
+```
+
 ## Instalação
 
 ```bash
 $ yarn 
 ```
+
+## Preparando o Banco de dados
+- Para criar a migração no Banco de Dados, roda o comando:
+```bash
+$ npx run migrate dev
+```
+
 
 ## Rodando a aplicação
 
